@@ -5,6 +5,7 @@ import "./home.css";
 // /movie/550?api_key=8ff4f5e673f6817f1aa7e904f06a3ffb&language="pt-BR"
 function Home() {
   const [filmes, setFilmes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadfilmes() {
@@ -17,10 +18,20 @@ function Home() {
       });
 
       setFilmes(response.data.results.slice(0, 10));
+      setLoading(false);
     }
 
     loadfilmes();
   });
+
+  if (loading) {
+    return (
+      <div className="loading">
+        <h2>Carregando filme...</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="container">
       <div className="lista-filmes">
