@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"; // Importa hooks do React
 import { useParams, useNavigate } from "react-router-dom"; // Importa funções para manipulação de rotas
 import "./filme-info.css"; // Importa o arquivo de estilos CSS
 import api from "../../service/api"; // Importa a instância de API configurada
+import { toast, ToastContainer } from "react-toastify";
 
 function Filme() {
   const { id } = useParams(); // Obtém o parâmetro da URL (id do filme)
@@ -46,12 +47,12 @@ function Filme() {
     );
 
     if (hasFilme) {
-      alert("ESSE FILME JÁ ESTÁ NA LISTA");
+      toast.warn("Esse filme Já está na Sua Lista");
       return;
     }
     filmesSalvos.push(filme);
     localStorage.setItem("@primeflix", JSON.stringify(filmesSalvos));
-    alert("FILME SALVO COM SUCESSO ");
+    toast.success("Filme Salvo com Sucesso");
   }
 
   if (loading) {
